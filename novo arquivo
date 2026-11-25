@@ -1,0 +1,27 @@
+from pagamento import (
+    PagamentoCartao,
+    PagamentoDebito,
+    PagamentoDinheiro,
+    PagamentoPix,
+)
+from venda import Venda
+
+
+def main():
+    total = 200.00
+
+    venda_pix = Venda(total, PagamentoPix(total))
+    venda_dinheiro = Venda(total, PagamentoDinheiro(total))
+    venda_cartao = Venda(total, PagamentoCartao(total))
+    venda_debito = Venda(total, PagamentoDebito(total))
+
+    for venda in (venda_pix, venda_dinheiro, venda_cartao, venda_debito):
+        venda.finalizar()
+        print(venda.gerar_comprovante())
+        print()
+
+    print(f"Total de vendas: {Venda.get_total_vendas()}")
+
+
+if __name__ == "__main__":
+    main()
