@@ -1,0 +1,32 @@
+from pagamento import Pagamento
+
+
+class Venda:
+    _total_vendas = 0
+
+    def __init__(self, valor_bruto: float, pagamento: Pagamento):
+        self.valor_bruto = valor_bruto
+        self.pagamento = pagamento
+        self.valor_final = None
+        Venda._total_vendas += 1
+
+    def finalizar(self) -> float:
+        self.valor_final = self.pagamento.calcular_valor_final()
+        return self.valor_final
+
+    def gerar_comprovante(self) -> str:
+        if self.valor_final is None:
+            self.finalizar()
+
+        modalidade = type(self.pagamento).__name__.replace("Pagamento", "")
+        return (
+            "=== COMPROVANTE DE VENDA ===\n"
+            f"Modalidade: {modalidade}\n"
+            f"Valor bruto: R$ {self.valor_bruto:.2f}\n"
+            f"Valor final: R$ {self.valor_final:.2f}\n"
+            "============================"
+        )
+
+    @staticmethod
+    def get_total_vendas() -> int:
+        return Venda._total_vendas
