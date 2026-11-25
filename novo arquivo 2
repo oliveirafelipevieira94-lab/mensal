@@ -1,0 +1,26 @@
+class Pagamento:
+    def __init__(self, valor: float):
+        self.valor = valor
+
+    def calcular_valor_final(self) -> float:
+        return self.valor
+
+
+class PagamentoDebito(Pagamento):
+    def calcular_valor_final(self) -> float:
+        return self.valor
+
+
+class PagamentoPix(Pagamento):
+    def calcular_valor_final(self) -> float:
+        return self.valor * 0.95
+
+
+class PagamentoDinheiro(Pagamento):
+    def calcular_valor_final(self) -> float:
+        return self.valor * 0.97
+
+
+class PagamentoCartao(Pagamento):
+    def calcular_valor_final(self) -> float:
+        return self.valor * 1.05
